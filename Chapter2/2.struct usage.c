@@ -5,46 +5,41 @@
 /*------------------------------------------*/
 //Compiler:Microsoft Visual C++ 2010 Express
 #include <stdio.h>
-#include <math.h>
 #include <stdlib.h>
-#define MAX_SIZE 101
-#define SWAP(x,y,t) ((t) = (x), (x) = (y), (y) = (t))
-void sort(int list[],int n);
+#include <string.h>
+
+struct Date{
+	int year;
+	int month;
+	int day;
+};
+
+struct Human{
+	char name[10];
+	int age;
+	int score;
+	Date birthday;//struct in a struct
+	
+	void display(void){//member function
+		printf("Name:%s\n",name);
+		printf("age:%d\n",age);
+		printf("score:%d\n",score);
+		printf("born on:%d/%d/%d\n",birthday.year,birthday.month,birthday.day);
+	}
+};
 
 int main(){
 
-	int i,n;
-	int *list;
-	printf("Enter the number of numbers to generate: ");
-	scanf("%d",&n);
-	if(n < 1|| n > MAX_SIZE){
-		fprintf(stderr,"Improper value of n\n");
-		system("pause");
-		exit(EXIT_FAILURE);
-	}
-	list = (int*) malloc(n*sizeof(int));//dynamic allocation
-	for(i = 0;i < n;i++){
-		list[i] = rand() % 100;
-		printf("%d ",list[i]);
-	}
-	sort(list,n);
-	printf("\nSorted array:\n");
+	Human H;//declare a human
+	strcpy(H.name,"Amy");
+	H.age = 12;
+	H.score = 95;
+	H.birthday.year = 1998;
+	H.birthday.month = 1;
+	H.birthday.day = 20;
 
-	for(i = 0;i < n;i++){
-		printf("%d ",list[i]);
-	}
-	printf("\n");
-
+	H.display();//call the function
+	
 	system("pause");
 }
 
-void sort(int list[],int n){
-	int i,j,min,temp;
-	for(i = 0;i < n-1;i++){
-		min = i;
-		for(j = i+1;j < n;j++)
-			if(list[j] < list[min])
-				min = j;
-		SWAP(list[i],list[min],temp);
-	}
-}
